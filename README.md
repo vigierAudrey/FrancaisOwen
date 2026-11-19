@@ -4,6 +4,8 @@ Application pour apprendre **les sons, les mots et la lecture** en s'amusant (co
 enfant de 7 ans, CE1). Elle fonctionne sur smartphone, tablette et PC, s'installe comme une
 vraie application et marche **hors connexion**. Projet jumeau de Maths Owen.
 
+👉 **Jouer / installer : https://vigieraudrey.github.io/FrancaisOwen/**
+
 ## Ce qu'il y a dedans
 
 **👂 Les sons** : 31 sons (voyelles, ou, on, an, in, oi, eu, ch, gn, ill, consonnes) et

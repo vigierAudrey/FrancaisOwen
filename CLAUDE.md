@@ -96,6 +96,14 @@ node tools/check-words.mjs && node tools/check-exercises.mjs
   ajouter tout nouveau fichier.
 - Vérifier sur un viewport de téléphone (390×844) et sur PC, et regarder la console.
 
+## Git et déploiement
+
+- Dépôt : https://github.com/vigierAudrey/FrancaisOwen (branche `main`).
+- Hébergement : **GitHub Pages** depuis `main` (racine) → https://vigieraudrey.github.io/FrancaisOwen/
+  Chaque `git push` sur `main` met le site à jour (1 à 2 min). Penser à incrémenter `VERSION` dans `sw.js`.
+- Messages de commit en français. L'e-mail de commit du dépôt est l'adresse noreply GitHub
+  (configurée localement) : ne pas la remplacer par une adresse personnelle (dépôt public).
+
 ## Feuille de route
 
 - **Étape 1 (faite)** : socle PWA, univers Sons (31 sons + 12 paires de sons cousins) et Mots,
