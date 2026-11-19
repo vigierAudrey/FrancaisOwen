@@ -3,7 +3,7 @@
 // mise à jour en arrière-plan (la nouvelle version s'affiche au lancement suivant).
 // ⚠️ Quand on ajoute un fichier, l'ajouter à ASSETS et incrémenter VERSION.
 
-const VERSION = 'v4';
+const VERSION = 'v5';
 const CACHE = `francaisowen-${VERSION}`;
 const ASSETS = [
   './',
@@ -30,6 +30,7 @@ const ASSETS = [
   'js/exercises/mots.js',
   'js/exercises/sons.js',
   'js/lang/word.js',
+  'js/screens/bingo.js',
   'js/screens/chrono.js',
   'js/screens/crossword.js',
   'js/screens/games.js',
@@ -39,6 +40,7 @@ const ASSETS = [
   'js/screens/memory.js',
   'js/screens/mystery.js',
   'js/screens/parent.js',
+  'js/screens/rain.js',
   'js/screens/results.js',
   'js/screens/rewards.js',
   'js/screens/session.js',

@@ -139,7 +139,8 @@ export default function sessionScreen(params) {
             h(
               'button',
               { class: `btn choice ${q.choiceStyle}`, 'data-v': i, onclick: (e) => submit(c.value, e.currentTarget) },
-              c.emoji ? h('span', { class: 'choice-emoji' }, c.emoji) : h('span', { class: 'choice-text' }, c.text)
+              c.emoji ? h('span', { class: 'choice-emoji' }, c.emoji) : h('span', { class: 'choice-text' }, c.text),
+              c.emoji && c.caption ? h('span', { class: 'choice-caption' }, c.caption) : null
             )
           )
         )

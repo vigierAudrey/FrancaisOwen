@@ -36,7 +36,7 @@ js/units/             univers (sons, mots, lecture, grammaire) + registre index.
 js/exercises/         exercices question par question (un fichier par univers) + registre index.js
 js/core/              store (sauvegarde), srs (Leitner + isDue), session, router, rewards
 js/ui/                dom (h), speech (voix), recordings (voix du parent, IndexedDB), wordView, sound, confetti, components
-js/screens/           home, unitMenu, session, results, learn, hunt, memory, mystery, chrono, wordsearch, crossword, games, rewards, parent
+js/screens/           home, unitMenu, session, results, learn, hunt, memory, mystery, chrono, wordsearch, crossword, rain, bingo, games, rewards, parent
 tools/                scripts de vérification (node) — non livrés
 ```
 
@@ -115,7 +115,8 @@ node tools/check-words.mjs && node tools/check-exercises.mjs
   des adjectifs, nom/verbe/adjectif, la phrase, et/est, a/à, être, avoir, aller, verbes en -er),
   avec leçons dans « J'apprends ».
 - **Étape 3 (en partie faite)** : jeux Mot mystère, Défi chrono, **Mots mêlés** (liste ou devinettes,
-  3 niveaux), **Mots croisés illustrés** (images ou devinettes, grille générée à chaque partie) et exercice **Devinettes** (définitions des 373 mots) ; enregistrement des sons par
-  le parent. Reste à faire : Pluie de mots, carte d'aventure avec niveaux à débloquer,
+  3 niveaux), **Mots croisés illustrés** (images ou devinettes, grille générée à chaque partie), **Pluie de mots**, **Bingo des sons**,
+  exercices **Devinettes** (définitions des 373 mots) et **L’intrus** (sons et familles de mots) ; enregistrement des sons par
+  le parent. Reste à faire : carte d'aventure avec niveaux à débloquer,
   écriture cursive, plusieurs profils enfants, export Play Store (PWABuilder / Capacitor),
   plus d'histoires et de phrases, passé composé / futur en CE2.

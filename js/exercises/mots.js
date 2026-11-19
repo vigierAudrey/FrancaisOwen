@@ -2,6 +2,7 @@
 
 import { SOUNDS } from '../data/sounds.js';
 import { WORDS, WORD_BY, SIGHT, closeWords, sayOf, withArticle } from '../lang/word.js';
+import { THEMES } from '../data/words.js';
 import { pick, shuffle } from '../core/util.js';
 import { fits, NEVER } from './sons.js';
 
@@ -197,6 +198,46 @@ export const riddle = {
       reveal: { word },
       afterOk: word.w,
       correction: { emoji: word.emoji, word, text: `C’est ${withArticle(word)} : ${word.def.charAt(0).toLowerCase()}${word.def.slice(1)}`, say: `${withArticle(word)}. ${word.def}` },
+    };
+  },
+};
+
+// Familles trop proches pour un intrus sans ambiguïté (le poisson se mange, la plante pousse dehors…).
+const CLOSE_THEMES = new Set(['animaux|manger', 'maison|nature', 'ecole|maison', 'jeux|maison', 'gens|jeux', 'jeux|vetements', 'corps|gens']);
+const close = (a, b) => CLOSE_THEMES.has([a, b].sort().join('|'));
+
+export const oddWord = {
+  id: 'oddWord',
+  label: 'L’intrus',
+  emoji: '🙈',
+  desc: 'L’image qui n’est pas de la famille',
+  build(item) {
+    const word = item.word;
+    if (!word.emoji || word.sight) return null;
+    // Trois mots d'une autre famille + le mot travaillé, qui est l'intrus.
+    const theme = pick(THEMES.filter((t) => t.id !== word.theme && !close(t.id, word.theme)));
+    const family = shuffle(WORDS.filter((w) => w.theme === theme.id && w.emoji !== word.emoji)).slice(0, 3);
+    if (family.length < 3) return null;
+    const set = shuffle([word, ...family]);
+    const own = THEMES.find((t) => t.id === word.theme);
+    return {
+      item,
+      instruction: 'Trouve l’intrus : l’image qui n’est pas de la même famille.',
+      say: `Trouve l’intrus. ${set.map((w) => w.w).join('… ')}.`,
+      emoji: '🙈',
+      tip: 'Trois images vont ensemble. Laquelle n’est pas avec les autres ?',
+      input: 'choices',
+      choiceStyle: 'emoji',
+      choices: set.map((w) => ({ value: w.w, emoji: w.emoji, caption: w.w })),
+      answer: word.w,
+      reveal: { word },
+      afterOk: `${word.w} ! Les autres sont de la famille : ${theme.label.toLowerCase()}.`,
+      correction: {
+        emoji: word.emoji,
+        word,
+        text: `${family.map((w) => w.w).join(', ')} : c’est la famille « ${theme.label} » ${theme.emoji}. « ${word.w} », c’est la famille « ${own.label} » ${own.emoji}.`,
+        say: `${word.w}. Les autres sont de la famille ${theme.label}.`,
+      },
     };
   },
 };

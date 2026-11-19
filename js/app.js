@@ -16,6 +16,8 @@ import mystery from './screens/mystery.js';
 import chrono from './screens/chrono.js';
 import wordsearch from './screens/wordsearch.js';
 import crossword from './screens/crossword.js';
+import rain from './screens/rain.js';
+import bingo from './screens/bingo.js';
 import rewards from './screens/rewards.js';
 import parent from './screens/parent.js';
 
@@ -33,6 +35,8 @@ register('mystery', mystery);
 register('chrono', chrono);
 register('wordsearch', wordsearch);
 register('crossword', crossword);
+register('rain', rain);
+register('bingo', bingo);
 register('rewards', rewards);
 register('parent', parent);
 

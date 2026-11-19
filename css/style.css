@@ -740,3 +740,59 @@ details.heat-row summary { cursor: pointer; width: auto; }
 .cw-pop { position: fixed; inset: auto 0 0 0; z-index: 50; padding: 12px 16px 20px; display: flex; justify-content: center; background: linear-gradient(transparent, rgba(45, 48, 71, .25)); animation: up .3s; }
 .cw-pop .cw-card { max-width: 520px; }
 .cw-card .row { justify-content: flex-start; }
+.choice-caption { display: block; font: 600 clamp(.95rem, 4.2vw, 1.15rem) var(--word-font); margin-top: 2px; overflow-wrap: anywhere; }
+
+/* ---------- La pluie de mots ---------- */
+.rain-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.rain-top .timer { font-size: 1.2rem; padding: 4px 12px; }
+.rain-lives { font-size: 1.05rem; letter-spacing: -1px; }
+.rain-wrap { position: relative; }
+.rain-field {
+  position: relative; overflow: hidden; height: max(380px, calc(100dvh - 190px)); border-radius: var(--radius); touch-action: none;
+  background: linear-gradient(#CFE6FF, #EAF4FF 70%, #BFE3B4 70%, #A6D79A); box-shadow: var(--shadow);
+}
+.rain-field.hurt { animation: rainHurt .35s; }
+@keyframes rainHurt { 30% { box-shadow: inset 0 0 0 6px var(--ko); } }
+.drop {
+  position: absolute; left: 0; top: 0; padding: 4px; border: 3px solid #fff; border-radius: 50% 50% 46% 46%;
+  background: rgba(255, 255, 255, .92); box-shadow: 0 6px 14px rgba(29, 95, 209, .25);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; will-change: transform; touch-action: none;
+}
+.drop-emoji { font-size: 2.3rem; line-height: 1; pointer-events: none; }
+.drop-word { font-size: .82rem; font-weight: 700; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
+.drop.caught { animation: dropCaught .45s forwards; border-color: var(--ok); }
+.drop.wrong { animation: dropWrong .45s forwards; border-color: var(--ko); background: var(--ko-l); }
+.drop.splash { animation: dropSplash .45s forwards; }
+.drop.melt { animation: fade .4s reverse forwards; }
+@keyframes dropCaught { to { opacity: 0; scale: 1.5; } }
+@keyframes dropWrong { 30% { rotate: -12deg; } 60% { rotate: 12deg; } to { opacity: 0; } }
+@keyframes dropSplash { to { opacity: 0; scale: 1.6 .3; } }
+.rain-banner {
+  position: absolute; left: 50%; top: 40%; translate: -50% -50%; pointer-events: none; opacity: 0;
+  display: flex; align-items: center; gap: 10px; background: var(--card); padding: 12px 18px; border-radius: 22px; box-shadow: var(--shadow); font-size: 1.3rem; font-weight: 600; white-space: nowrap;
+}
+.rain-banner.show { animation: rainBanner 2.2s; }
+@keyframes rainBanner { 0% { opacity: 0; scale: .5; } 15%, 75% { opacity: 1; scale: 1; } 100% { opacity: 0; } }
+.rain-recap { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.rain-recap-w { display: flex; align-items: center; gap: 4px; border: 2px solid var(--line); background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 1.1rem; }
+.sheet-inner .col.tight { align-items: center; width: 100%; }
+
+/* ---------- Le bingo des sons ---------- */
+.bingo-call { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; font-size: 1.35rem; font-weight: 600; min-height: 72px; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 10px; }
+.bingo-call.pop { animation: zoom .35s; }
+.bingo-big { font-size: 1.9rem; font-weight: 700; color: var(--accent-d); }
+.bingo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.bingo-cell {
+  position: relative; aspect-ratio: 1; border: 3px solid var(--line); border-radius: 20px; background: var(--card); box-shadow: 0 6px 0 var(--line);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px; overflow: hidden;
+}
+.bingo-cell:active { transform: translateY(3px); box-shadow: 0 3px 0 var(--line); }
+.bingo-emoji { font-size: clamp(2.6rem, 14vw, 3.8rem); line-height: 1.05; }
+.bingo-word { font-size: clamp(.9rem, 4vw, 1.15rem); min-height: 1.2em; }
+.bingo-token { position: absolute; top: 4px; right: 6px; font-size: clamp(1.6rem, 8vw, 2.2rem); opacity: 0; scale: 2.5; transition: .3s; pointer-events: none; }
+.bingo-cell.marked { border-color: var(--accent); background: var(--accent-l); box-shadow: 0 6px 0 var(--accent); }
+.bingo-cell.marked .bingo-token { opacity: 1; scale: 1; }
+.bingo-cell.line { border-color: var(--star-d); background: #FFF3CC; box-shadow: 0 6px 0 var(--star-d); animation: popc .4s 3; }
+.bingo-cell.nope { animation: shake .4s; border-color: var(--ko); }
+.bingo-msg { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; font-size: 1.15rem; }
+.bingo-msg .word { font-size: 1.3rem; }

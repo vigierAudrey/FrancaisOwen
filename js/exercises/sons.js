@@ -201,3 +201,41 @@ export const where = {
     };
   },
 };
+
+export const oddSound = {
+  id: 'oddSound',
+  label: 'L’intrus',
+  emoji: '🙈',
+  desc: 'L’image qui n’a pas le son',
+  build(item) {
+    const snd = item.sound;
+    if (!item.word.emoji) return null;
+    const used = new Set([item.word.emoji]);
+    const others = shuffle(WORDS.filter((w) => w.emoji && w.sounds.has(snd) && !used.has(w.emoji))).slice(0, 2);
+    if (others.length < 2) return null;
+    const without = WORDS.filter((w) => w.emoji && !w.sounds.has(snd));
+    const tricky = without.filter((w) => SOUNDS[snd].confuse.some((c) => w.sounds.has(c)));
+    const odd = pick(tricky.length && Math.random() < 0.75 ? tricky : without);
+    const set = shuffle([item.word, ...others, odd]);
+    return {
+      item,
+      instruction: 'Trouve l’intrus : l’image où l’on n’entend pas',
+      sound: snd,
+      say: `Trouve l’intrus. ${set.map((w) => w.w).join('… ')}.`,
+      emoji: '🙈',
+      tip: `Dans trois images, on entend ${lab(snd)}. Pas dans l’intrus !`,
+      input: 'choices',
+      choiceStyle: 'emoji',
+      choices: set.map((w) => ({ value: w.w, emoji: w.emoji, caption: w.w })),
+      answer: odd.w,
+      reveal: { word: odd },
+      afterOk: `${odd.w} ! On n’entend pas ${SOUNDS[snd].say}.`,
+      correction: {
+        emoji: odd.emoji,
+        word: odd,
+        text: `L’intrus, c’est « ${odd.w} » : on n’y entend pas ${lab(snd)}. Dans les autres, si : ${set.filter((w) => w !== odd).map((w) => w.w).join(', ')}.`,
+        say: `${odd.w}. On n’entend pas ${SOUNDS[snd].say}.`,
+      },
+    };
+  },
+};

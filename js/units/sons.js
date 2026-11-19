@@ -39,6 +39,6 @@ export default {
   families: FAMILIES,
   skills: [...soundSkills, ...pairSkills],
   defaultSkills: ['ou', 'on', 'an', 'in', 'oi', 'ch', 'é', 'è', 'eu', 'p-b', 'f-v', 'an-on'],
-  modes: ['learn', 'hear', 'pickSound', 'spell', 'where', 'variant', 'hunt'],
-  reviewModes: ['hear', 'pickSound', 'spell', 'where', 'variant'],
+  modes: ['learn', 'hear', 'pickSound', 'spell', 'where', 'variant', 'oddSound', 'hunt', 'rain', 'bingo'],
+  reviewModes: ['hear', 'pickSound', 'spell', 'where', 'variant', 'oddSound'],
 };

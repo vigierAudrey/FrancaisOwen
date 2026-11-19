@@ -10,7 +10,7 @@
 //   text / textOpts  texte à lire (« _ » = case à remplir) ; textOpts.big, textOpts.story
 //   title         titre au-dessus du texte  helpSay  texte lisible sur demande (pas de lecture auto)
 //   input         'choices' | 'truefalse' | 'tiles' | 'boxes'
-//   choices       [{ value, emoji?, text? }] + choiceStyle 'emoji' | 'emojis' | 'text' | 'long' | 'grapheme' | 'sound'
+//   choices       [{ value, emoji?, text?, caption? }] (caption : petit mot sous l'image) + choiceStyle 'emoji' | 'emojis' | 'text' | 'long' | 'grapheme' | 'sound'
 //   tfLabels      libellés Oui / Non        tiles, tileStyle  étiquettes à remettre dans l'ordre
 //   boxes         syllabes (cases à toucher) answer   la bonne réponse
 //   reveal        { word, highlight } montré après la réponse
@@ -31,6 +31,8 @@ export const EXERCISES = Object.fromEntries(
 const SCREENS = {
   learn: { id: 'learn', label: 'J’apprends', emoji: '📖', desc: 'Regarde et écoute', screen: 'learn' },
   hunt: { id: 'hunt', label: 'Chasse aux sons', emoji: '🧺', desc: 'Attrape les bons mots', screen: 'hunt', game: true },
+  rain: { id: 'rain', label: 'La pluie de mots', emoji: '🌧️', desc: 'Attrape les mots qui tombent', screen: 'rain', game: true },
+  bingo: { id: 'bingo', label: 'Le bingo des sons', emoji: '🎱', desc: '3 jetons alignés : bingo !', screen: 'bingo', game: true },
   mystery: { id: 'mystery', label: 'Le mot mystère', emoji: '🕵️', desc: 'Devine le mot lettre par lettre', screen: 'mystery', game: true },
   chrono: { id: 'chrono', label: 'Défi chrono', emoji: '⏱️', desc: 'Le plus de mots en 60 secondes', screen: 'chrono', game: true },
   wordsearch: { id: 'wordsearch', label: 'Mots mêlés', emoji: '🔎', desc: 'Retrouve les mots cachés dans la grille', screen: 'wordsearch', game: true },
