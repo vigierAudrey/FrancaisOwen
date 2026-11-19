@@ -14,11 +14,12 @@ import { shuffle, pick } from '../core/util.js';
 import { speak, stopSpeaking } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome } from '../core/adventure.js';
 
 const LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 const TOKENS = ['🔴', '🟠', '🟡', '🟢', '🔵', '🟣'];
 
-export default function bingo({ unitId = 'sons', skillIds = [] }) {
+export default function bingo({ unitId = 'sons', skillIds = [], quest }) {
   const st = getState();
   const unit = getUnit(unitId);
   const sounds = [...new Set(skillIds.map((id) => getSkill(unit, id)).filter(Boolean).flatMap((s) => s.pair || [s.sound]))].filter(
@@ -126,12 +127,13 @@ export default function bingo({ unitId = 'sons', skillIds = [] }) {
     speak(full ? 'Carton plein ! Bravo !' : 'Bingo ! Bravo !', { force: true });
     msg.replaceChildren(
       mascot(full ? `Tu as rempli tout le carton ! +${stars} ⭐` : `Trois jetons alignés ! +${stars} ⭐ Tu continues jusqu’au carton plein ?`, { mood: 'wow' }),
+      quest && !full ? questOutcome(quest, { ok: true, stars: mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1 }) : null,
       h(
         'div',
         { class: 'row wrap' },
         h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'),
         full ? null : h('button', { class: 'btn secondary', onclick: () => { msg.replaceChildren(); nextCall(); } }, '➜ Carton plein'),
-        h('button', { class: 'btn', onclick: () => go('bingo', { unitId, skillIds }, { replace: true }) }, '🔁 Nouveau carton')
+        h('button', { class: 'btn', onclick: () => go('bingo', { unitId, skillIds, quest }, { replace: true }) }, '🔁 Nouveau carton')
       )
     );
     if (full) over = true;

@@ -23,9 +23,10 @@ import * as sons from './sons.js';
 import * as mots from './mots.js';
 import * as lecture from './lecture.js';
 import * as grammaire from './grammaire.js';
+import * as nombres from './nombres.js';
 
 export const EXERCISES = Object.fromEntries(
-  [sons, mots, lecture, grammaire].flatMap((m) => Object.values(m)).filter((x) => x && x.build).map((x) => [x.id, x])
+  [sons, mots, lecture, grammaire, nombres].flatMap((m) => Object.values(m)).filter((x) => x && x.build).map((x) => [x.id, x])
 );
 
 const SCREENS = {

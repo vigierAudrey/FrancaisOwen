@@ -7,6 +7,7 @@ import { getUnit, enabledSkills } from '../units/index.js';
 import { header, mascot } from '../ui/components.js';
 
 const GAMES = [
+  { screen: 'adventure', unitId: 'review', emoji: '🗺️', label: 'La carte de l’aventure', desc: 'D’île en île jusqu’au trésor de Plume' },
   { screen: 'wordsearch', unitId: 'mots', emoji: '🔎', label: 'Mots mêlés', desc: 'Trouve les mots cachés et apprends leur sens' },
   { screen: 'crossword', unitId: 'mots', emoji: '✏️', label: 'Mots croisés', desc: 'Écris les mots grâce aux images ou aux devinettes' },
   { mode: 'riddle', unitId: 'mots', emoji: '🤔', label: 'Les devinettes', desc: 'Écoute la définition et trouve le mot' },
@@ -24,13 +25,12 @@ const GAMES = [
   { mode: 'play', unitId: 'grammaire', emoji: '✏️', label: 'Grammaire surprise', desc: 'Un peu de toutes les règles' },
 ];
 
-const SOON = [
-  { emoji: '🗺️', label: 'La carte de l’aventure' },
-];
+const SOON = [];
 
 export default function games() {
   const st = getState();
   const launch = (g) => {
+    if (g.screen === 'adventure') return go('adventure');
     const skillIds = enabledSkills(getUnit(g.unitId), st).map((s) => s.id);
     if (g.screen) go(g.screen, { unitId: g.unitId, skillIds });
     else go('session', { unitId: g.unitId, skillIds, mode: g.mode });

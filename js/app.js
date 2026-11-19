@@ -18,25 +18,41 @@ import wordsearch from './screens/wordsearch.js';
 import crossword from './screens/crossword.js';
 import rain from './screens/rain.js';
 import bingo from './screens/bingo.js';
+import adventure from './screens/adventure.js';
+import { questBanner } from './core/adventure.js';
 import rewards from './screens/rewards.js';
 import parent from './screens/parent.js';
 
 initStore(units);
 
+/** Jeu lancé depuis la carte de l'aventure : on affiche l'étape et son objectif sous l'en-tête. */
+const withQuest = (fn) => (params) => {
+  const r = fn(params);
+  const banner = params.quest && questBanner(params.quest);
+  if (banner) {
+    const el = r instanceof Node ? r : r.el;
+    const head = el.querySelector('.header');
+    if (head) head.after(banner);
+    else el.prepend(banner);
+  }
+  return r;
+};
+
 register('home', home);
 register('unit', unitMenu);
-register('session', sessionScreen);
+register('session', withQuest(sessionScreen));
 register('results', results);
 register('learn', learn);
-register('hunt', hunt);
-register('memory', memory);
+register('hunt', withQuest(hunt));
+register('memory', withQuest(memory));
 register('games', games);
-register('mystery', mystery);
-register('chrono', chrono);
-register('wordsearch', wordsearch);
-register('crossword', crossword);
-register('rain', rain);
-register('bingo', bingo);
+register('mystery', withQuest(mystery));
+register('chrono', withQuest(chrono));
+register('wordsearch', withQuest(wordsearch));
+register('crossword', withQuest(crossword));
+register('rain', withQuest(rain));
+register('bingo', withQuest(bingo));
+register('adventure', adventure);
 register('rewards', rewards);
 register('parent', parent);
 

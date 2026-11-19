@@ -29,14 +29,17 @@ js/data/
   sounds.js           table des sons (graphies, sons proches, voix), familles, paires de sons cousins
   words.js            BANQUE DE MOTS illustrés (notation syllabes/graphèmes) + mots-outils
   grammar.js          verbes, adjectifs (m/f), pluriels, h aspiré, conjugaison au présent
+  adventure.js        carte de l'aventure : îles et étapes (ids = clés de progression)
   definitions.js      définitions enfantines de chaque mot illustré (sans le mot lui-même)
+  nombres.js          nombres en lettres (0 → mille) et couleurs : notation, définition, fautes fréquentes
   sentences.js        phrases simples, vrai/faux, phrases à trou et/est a/à, petites histoires
 js/lang/word.js       analyse de la notation, syllabes orales, distance entre mots
-js/units/             univers (sons, mots, lecture, grammaire) + registre index.js
+js/units/             univers (sons, mots, lecture, grammaire, nombres) + registre index.js
 js/exercises/         exercices question par question (un fichier par univers) + registre index.js
-js/core/              store (sauvegarde), srs (Leitner + isDue), session, router, rewards
+js/core/              store (sauvegarde), srs (Leitner + isDue), session, router, rewards,
+                      adventure (progression sur la carte : questBanner, questOutcome)
 js/ui/                dom (h), speech (voix), recordings (voix du parent, IndexedDB), wordView, sound, confetti, components
-js/screens/           home, unitMenu, session, results, learn, hunt, memory, mystery, chrono, wordsearch, crossword, rain, bingo, games, rewards, parent
+js/screens/           home, unitMenu, session, results, learn, hunt, memory, mystery, chrono, wordsearch, crossword, rain, bingo, adventure, games, rewards, parent
 tools/                scripts de vérification (node) — non livrés
 ```
 
@@ -117,6 +120,8 @@ node tools/check-words.mjs && node tools/check-exercises.mjs
 - **Étape 3 (en partie faite)** : jeux Mot mystère, Défi chrono, **Mots mêlés** (liste ou devinettes,
   3 niveaux), **Mots croisés illustrés** (images ou devinettes, grille générée à chaque partie), **Pluie de mots**, **Bingo des sons**,
   exercices **Devinettes** (définitions des 373 mots) et **L’intrus** (sons et familles de mots) ; enregistrement des sons par
-  le parent. Reste à faire : carte d'aventure avec niveaux à débloquer,
-  écriture cursive, plusieurs profils enfants, export Play Store (PWABuilder / Capacitor),
+  le parent ; univers **Nombres et couleurs** (écrire les nombres
+  en lettres et les couleurs) ; **Carte de l’aventure** (7 îles, 42 étapes à débloquer ;
+  un jeu lancé depuis la carte reçoit `quest` et appelle `questOutcome()` en fin de partie).
+  Reste à faire : écriture cursive, plusieurs profils enfants, export Play Store (PWABuilder / Capacitor),
   plus d'histoires et de phrases, passé composé / futur en CE2.

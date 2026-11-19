@@ -13,11 +13,12 @@ import { shuffle, pick, randInt } from '../core/util.js';
 import { speak } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome, starsFromRatio } from '../core/adventure.js';
 
 const ROUNDS = 5;
 const CARDS = 6;
 
-export default function hunt({ unitId = 'sons', skillIds }) {
+export default function hunt({ unitId = 'sons', skillIds, quest }) {
   const unit = getUnit(unitId);
   const st = getState();
   const skills = skillIds.map((id) => getSkill(unit, id)).filter((s) => s && s.items.length >= 3);
@@ -128,7 +129,8 @@ export default function hunt({ unitId = 'sons', skillIds }) {
           'div',
           { class: 'sheet-inner center' },
           mascot(`Tu as attrapé ${found} mot${found > 1 ? 's' : ''} sur ${total} !`, { mood: ratio >= 0.7 ? 'wow' : 'happy' }),
-          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('hunt', { unitId, skillIds }, { replace: true }) }, '🔁 Rejouer'))
+          quest ? questOutcome(quest, { ok: ratio >= 0.7, stars: starsFromRatio(ratio), retry: () => go('hunt', { unitId, skillIds, quest }, { replace: true }) }) : null,
+          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('hunt', { unitId, skillIds, quest }, { replace: true }) }, '🔁 Rejouer'))
         )
       )
     );

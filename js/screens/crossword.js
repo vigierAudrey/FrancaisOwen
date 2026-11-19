@@ -16,6 +16,7 @@ import { shuffle, pick } from '../core/util.js';
 import { speak } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome } from '../core/adventure.js';
 
 const LEVELS = {
   easy: { label: 'Facile', emoji: '🐣', count: 4, maxLen: 6, maxW: 8, maxH: 9, stars: 3 },
@@ -150,17 +151,18 @@ function generate(candidates, level, st) {
   return best;
 }
 
-export default function crossword({ unitId = 'mots', skillIds, auto = false }) {
+export default function crossword({ unitId = 'mots', skillIds, auto = false, quest, opts }) {
   const st = getState();
-  const p = prefs(st);
+  // Depuis la carte de l'aventure : réglages imposés (sans toucher aux préférences).
+  const p = quest ? { ...prefs(st), ...opts } : prefs(st);
   const unit = getUnit(unitId);
-  const themes = unit.skills.filter((s) => s.family === 'themes' && (!skillIds || skillIds.includes(s.id)));
+  const themes = unit.skills.filter((s) => (s.family === 'themes' || s.wordTheme) && (!skillIds || skillIds.includes(s.id)));
   const el = h('div', { class: `screen crossword theme-${unitId}` }, header('Mots croisés'));
   if (!themes.length) {
     el.append(mascot('Demande à un parent de choisir des thèmes de mots pour jouer !', { mood: 'think' }));
     return el;
   }
-  const relaunch = (a) => go('crossword', { unitId, skillIds, auto: a }, { replace: true });
+  const relaunch = (a) => go('crossword', { unitId, skillIds, auto: a, quest: a ? quest : undefined, opts: a ? opts : undefined }, { replace: true });
 
   // ---------- Réglages ----------
   if (!auto) {
@@ -494,6 +496,7 @@ export default function crossword({ unitId = 'mots', skillIds, auto = false }) {
     giveUpBtn.remove();
     msg.replaceChildren(
       mascot(win ? `Bravo ! Tu as rempli toute la grille ! +${stars} ⭐` : `Voici la grille complète. +${stars} ⭐ pour l’effort !`, { mood: win ? 'wow' : 'think' }),
+      quest ? questOutcome(quest, { ok: win, stars: hints === 0 ? 3 : hints <= 3 ? 2 : 1, retry: () => relaunch(true) }) : null,
       h(
         'section',
         { class: 'panel' },

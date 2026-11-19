@@ -15,12 +15,13 @@ import { shuffle, pick } from '../core/util.js';
 import { speak, stopSpeaking } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome, questGoal } from '../core/adventure.js';
 
 const SECONDS = 60;
 const WAVE = 20; // secondes par son
 const LIVES = 5;
 
-export default function rain({ unitId = 'sons', skillIds = [] }) {
+export default function rain({ unitId = 'sons', skillIds = [], quest }) {
   const st = getState();
   const unit = getUnit(unitId);
   // Un son simple par notion (les paires « p / b » apportent leurs deux sons).
@@ -212,9 +213,10 @@ export default function rain({ unitId = 'sons', skillIds = [] }) {
             { mood: isNew ? 'wow' : 'happy' }
           ),
           h('div', { class: 'earned' }, `+${stars} ⭐`),
+          quest ? questOutcome(quest, { ok: score >= questGoal(quest), stars: score >= questGoal(quest) * 2 ? 3 : score >= questGoal(quest) * 1.5 ? 2 : 1, retry: () => go('rain', { unitId, skillIds, quest }, { replace: true }) }) : null,
           list('🧺 Tes mots attrapés', caught),
           list('💧 Ils sont tombés par terre :', missed),
-          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('rain', { unitId, skillIds }, { replace: true }) }, '🔁 Rejouer'))
+          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('rain', { unitId, skillIds, quest }, { replace: true }) }, '🔁 Rejouer'))
         )
       )
     );

@@ -11,11 +11,12 @@ import { shuffle, pick } from '../core/util.js';
 import { speak } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome } from '../core/adventure.js';
 
 const LIVES = 6;
 const EXTRA = 'aeioursltnmpcdbvfgjhz';
 
-export default function mystery({ unitId = 'mots', skillIds }) {
+export default function mystery({ unitId = 'mots', skillIds, quest }) {
   const st = getState();
   const pool = itemsFor(getUnit(unitId), skillIds).filter((i) => i.word.emoji && i.word.w.length >= 3 && i.word.w.length <= 8);
   const el = h('div', { class: 'screen mystery theme-mots' }, header('Le mot mystère'));
@@ -81,7 +82,8 @@ export default function mystery({ unitId = 'mots', skillIds }) {
     msg.replaceChildren(
       mascot(win ? `Bravo ! Tu as trouvé le mot ! +${stars} ⭐` : `Le mot était… +${stars} ⭐ pour l’effort !`, { mood: win ? 'wow' : 'think' }),
       h('div', { class: 'fix-word center' }, wordView(word)),
-      h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('mystery', { unitId, skillIds }, { replace: true }) }, '🔁 Un autre mot'))
+      quest ? questOutcome(quest, { ok: win, stars: hint ? 1 : lives >= 5 ? 3 : lives >= 3 ? 2 : 1, retry: () => go('mystery', { unitId, skillIds, quest }, { replace: true }) }) : null,
+      h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('mystery', { unitId, skillIds, quest }, { replace: true }) }, '🔁 Un autre mot'))
     );
   }
 

@@ -11,10 +11,11 @@ import { pick } from '../core/util.js';
 import { speak, stopSpeaking } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome, questGoal } from '../core/adventure.js';
 
 const SECONDS = 60;
 
-export default function chrono({ unitId = 'mots', skillIds }) {
+export default function chrono({ unitId = 'mots', skillIds, quest }) {
   const st = getState();
   const unit = getUnit(unitId);
   const items = itemsFor(unit, skillIds).filter((i) => i.word.emoji);
@@ -84,7 +85,8 @@ export default function chrono({ unitId = 'mots', skillIds }) {
           { class: 'sheet-inner center' },
           mascot(isNew ? `🎉 NOUVEAU RECORD : ${score} mots !` : `${score} mots trouvés ! Ton record : ${prev}.`, { mood: isNew ? 'wow' : 'happy' }),
           h('div', { class: 'earned' }, `+${stars} ⭐`),
-          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('chrono', { unitId, skillIds }, { replace: true }) }, '🔁 Rejouer'))
+          quest ? questOutcome(quest, { ok: score >= questGoal(quest), stars: score >= questGoal(quest) + 6 ? 3 : score >= questGoal(quest) + 3 ? 2 : 1, retry: () => go('chrono', { unitId, skillIds, quest }, { replace: true }) }) : null,
+          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('chrono', { unitId, skillIds, quest }, { replace: true }) }, '🔁 Rejouer'))
         )
       )
     );

@@ -796,3 +796,66 @@ details.heat-row summary { cursor: pointer; width: auto; }
 .bingo-cell.nope { animation: shake .4s; border-color: var(--ko); }
 .bingo-msg { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; font-size: 1.15rem; }
 .bingo-msg .word { font-size: 1.3rem; }
+
+/* ---------- Carte de l'aventure ---------- */
+.adventure-card {
+  display: flex; align-items: center; gap: 14px; border: 0; text-align: left; border-radius: var(--radius); padding: 16px; color: #fff;
+  background: linear-gradient(135deg, #FF9F43, #F368E0); box-shadow: 0 7px 0 #C2459E;
+}
+.adventure-card:active { transform: translateY(4px); box-shadow: 0 3px 0 #C2459E; }
+.adventure-card .review-txt { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.adventure-card b { font-size: 1.3rem; }
+.adv-emoji { font-size: 2.8rem; }
+.adv-progress { display: flex; align-items: center; gap: 10px; font-weight: 600; background: var(--card); border-radius: 999px; padding: 8px 14px; box-shadow: var(--shadow); }
+.adv-progress .bar { flex: 1; }
+.island { border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; color: #2D3047; }
+.isl-sons { background: linear-gradient(#FFF1C9, #FFE19A 60%, #9ED9F5); --path: #D9A441; }
+.isl-jungle { background: linear-gradient(#DDF6C8, #A8E07E); --path: #4E8B2E; }
+.isl-volcan { background: linear-gradient(#FFE0D1, #FFB49A 70%, #8F6A5D); --path: #B4442A; }
+.isl-foret { background: linear-gradient(#E3F4E1, #9CCF97); --path: #2F6B3A; }
+.isl-chateau { background: linear-gradient(#ECE6FF, #C9B8FF); --path: #6B3FD4; }
+.isl-tresor { background: linear-gradient(#D5F5F1, #8EE0D4 60%, #FFE38A); --path: #0E8F81; }
+.island.far { filter: grayscale(.75) opacity(.75); }
+.isl-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px 0; }
+.isl-emoji { font-size: 2.2rem; }
+.isl-title { flex: 1; display: flex; flex-direction: column; }
+.isl-title b { font-size: 1.15rem; }
+.isl-title small { font-size: .92rem; opacity: .85; }
+.isl-count { font-weight: 700; background: rgba(255, 255, 255, .7); border-radius: 999px; padding: 4px 10px; }
+.isl-map { position: relative; }
+.isl-path { position: absolute; inset: 0; color: var(--path); opacity: .55; pointer-events: none; }
+.isl-path svg { display: block; }
+.step-node {
+  position: absolute; translate: -50% -38px; border: 0; background: none; padding: 0; width: 120px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.step-circle {
+  width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; font-size: 2.3rem;
+  background: #fff; border: 4px solid var(--path); box-shadow: 0 6px 0 rgba(0, 0, 0, .18);
+}
+.step-node.chest .step-circle { width: 86px; height: 86px; font-size: 2.7rem; border-color: var(--star-d); background: #FFF7D6; }
+.step-node.locked .step-circle { background: rgba(255, 255, 255, .55); border-color: rgba(0, 0, 0, .15); font-size: 1.7rem; box-shadow: none; }
+.step-node.done .step-circle { border-color: var(--ok); }
+.step-node.current .step-circle { border-color: var(--accent, #FF8A3D); animation: pulse .7s ease infinite alternate; box-shadow: 0 0 0 7px rgba(255, 255, 255, .7), 0 6px 0 rgba(0, 0, 0, .18); }
+.step-node:active .step-circle { transform: scale(.94); }
+.step-label { font-size: .85rem; font-weight: 600; line-height: 1.15; text-align: center; background: rgba(255, 255, 255, .75); border-radius: 10px; padding: 2px 6px; }
+.step-node.locked .step-label { opacity: .6; }
+.step-stars { font-size: .85rem; letter-spacing: -2px; }
+.step-plume { position: absolute; top: -34px; right: 10px; font-size: 2.1rem; animation: float 1.6s ease-in-out infinite; }
+.step-sheet-emoji { font-size: 4rem; }
+.step-goal { font-size: 1.15rem; margin: 0; }
+.quest-stars { font-size: 2rem; display: flex; gap: 6px; justify-content: center; }
+.quest-stars span { filter: grayscale(1) opacity(.35); }
+.quest-stars span.on { filter: none; animation: starIn .5s; }
+.quest-banner { display: flex; align-items: center; gap: 10px; background: #FFF3CC; border: 2px dashed var(--star-d); border-radius: 16px; padding: 8px 12px; }
+.quest-banner .quest-emoji { font-size: 1.8rem; }
+.quest-banner > span:last-child { display: flex; flex-direction: column; }
+.quest-banner small { color: #7A5A00; }
+.quest-result { align-items: center; text-align: center; border: 3px solid var(--line); }
+.quest-result.ok { border-color: var(--star); background: #FFFBEA; }
+
+/* ---------- Nombres et couleurs ---------- */
+:root { --nom: #E2489A; --nom-d: #B32A74; --nom-l: #FFE1F0; }
+.theme-nombres { --accent: var(--nom); --accent-d: var(--nom-d); --accent-l: var(--nom-l); }
+.q-emoji.many { font-size: clamp(2rem, 10vw, 2.8rem); max-width: 330px; text-align: center; letter-spacing: 2px; line-height: 1.25; }
+.isl-arcenciel { background: linear-gradient(#FFE1F0, #FFF3C4 35%, #D5F5E3 65%, #D6E6FF); --path: #B32A74; }

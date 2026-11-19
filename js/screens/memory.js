@@ -10,10 +10,11 @@ import { wordView } from '../ui/wordView.js';
 import { speak } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome } from '../core/adventure.js';
 
 const PAIRS = 6;
 
-export default function memory({ unitId = 'mots', skillIds }) {
+export default function memory({ unitId = 'mots', skillIds, quest }) {
   const st = getState();
   const unit = getUnit(unitId);
   const el = h('div', { class: `screen memory theme-${unitId}` }, header('Memory'));
@@ -100,7 +101,8 @@ export default function memory({ unitId = 'mots', skillIds }) {
           { class: 'sheet-inner center' },
           mascot(isRecord && prev !== undefined ? `Nouveau record : ${moves} coups ! 🎉` : `Bravo ! Toutes les paires en ${moves} coups !`, { mood: 'wow' }),
           h('div', { class: 'earned' }, `+${bonus} ⭐`),
-          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('memory', { unitId, skillIds }, { replace: true }) }, '🔁 Rejouer'))
+          quest ? questOutcome(quest, { ok: true, stars: moves <= chosen.length + 3 ? 3 : moves <= chosen.length + 7 ? 2 : 1 }) : null,
+          h('div', { class: 'row' }, h('button', { class: 'btn ghost', onclick: () => back() }, '← Retour'), h('button', { class: 'btn', onclick: () => go('memory', { unitId, skillIds, quest }, { replace: true }) }, '🔁 Rejouer'))
         )
       )
     );

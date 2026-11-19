@@ -3,7 +3,7 @@
 // mise à jour en arrière-plan (la nouvelle version s'affiche au lancement suivant).
 // ⚠️ Quand on ajoute un fichier, l'ajouter à ASSETS et incrémenter VERSION.
 
-const VERSION = 'v5';
+const VERSION = 'v7';
 const CACHE = `francaisowen-${VERSION}`;
 const ASSETS = [
   './',
@@ -13,23 +13,28 @@ const ASSETS = [
   'icons/icon-192.png',
   'icons/icon-512.png',
   'js/app.js',
+  'js/core/adventure.js',
   'js/core/rewards.js',
   'js/core/router.js',
   'js/core/session.js',
   'js/core/srs.js',
   'js/core/store.js',
   'js/core/util.js',
+  'js/data/adventure.js',
   'js/data/definitions.js',
   'js/data/grammar.js',
   'js/data/sentences.js',
+  'js/data/nombres.js',
   'js/data/sounds.js',
   'js/data/words.js',
   'js/exercises/grammaire.js',
   'js/exercises/index.js',
   'js/exercises/lecture.js',
   'js/exercises/mots.js',
+  'js/exercises/nombres.js',
   'js/exercises/sons.js',
   'js/lang/word.js',
+  'js/screens/adventure.js',
   'js/screens/bingo.js',
   'js/screens/chrono.js',
   'js/screens/crossword.js',
@@ -57,6 +62,7 @@ const ASSETS = [
   'js/units/index.js',
   'js/units/lecture.js',
   'js/units/mots.js',
+  'js/units/nombres.js',
   'js/units/sons.js',
 ];
 self.addEventListener('install', (e) => {

@@ -17,6 +17,7 @@ import { shuffle, pick } from '../core/util.js';
 import { speak } from '../ui/speech.js';
 import { sound } from '../ui/sound.js';
 import { confetti } from '../ui/confetti.js';
+import { questOutcome } from '../core/adventure.js';
 
 const LEVELS = {
   easy: { label: 'Facile', emoji: '🐣', size: 7, count: 5, stars: 3, dirs: [[0, 1], [1, 0]], arrows: '→ ↓' },
@@ -117,18 +118,19 @@ function lineBetween([r0, c0], [r1, c1], size) {
   return Array.from({ length: n + 1 }, (_, i) => [r0 + sr * i, c0 + sc * i]);
 }
 
-export default function wordsearch({ unitId = 'mots', skillIds, auto = false }) {
+export default function wordsearch({ unitId = 'mots', skillIds, auto = false, quest, opts }) {
   const st = getState();
-  const p = prefs(st);
+  // Depuis la carte de l'aventure : réglages imposés (sans toucher aux préférences).
+  const p = quest ? { ...prefs(st), ...opts } : prefs(st);
   const unit = getUnit(unitId);
-  const themes = unit.skills.filter((s) => s.family === 'themes' && (!skillIds || skillIds.includes(s.id)));
+  const themes = unit.skills.filter((s) => (s.family === 'themes' || s.wordTheme) && (!skillIds || skillIds.includes(s.id)));
   const el = h('div', { class: `screen wordsearch theme-${unitId}` }, header('Mots mêlés'));
 
   if (!themes.length) {
     el.append(mascot('Demande à un parent de choisir des thèmes de mots pour jouer !', { mood: 'think' }));
     return el;
   }
-  const relaunch = (a) => go('wordsearch', { unitId, skillIds, auto: a }, { replace: true });
+  const relaunch = (a) => go('wordsearch', { unitId, skillIds, auto: a, quest: a ? quest : undefined, opts: a ? opts : undefined }, { replace: true });
 
   // ---------- Réglages de la partie ----------
   if (!auto) {
@@ -339,6 +341,7 @@ export default function wordsearch({ unitId = 'mots', skillIds, auto = false }) 
     giveUpBtn.remove();
     msg.replaceChildren(
       mascot(win ? `Bravo ! Tu as trouvé tous les mots ! +${stars} ⭐` : `Voici les mots cachés. +${stars} ⭐ pour l’effort !`, { mood: win ? 'wow' : 'think' }),
+      quest ? questOutcome(quest, { ok: win, stars: hints === 0 ? 3 : hints <= 2 ? 2 : 1, retry: () => relaunch(true) }) : null,
       h(
         'section',
         { class: 'panel' },

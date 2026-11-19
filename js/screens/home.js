@@ -5,6 +5,8 @@ import { units, comingSoon, enabledSkills, itemsFor, dueItems } from '../units/i
 import { masteryOf } from '../core/srs.js';
 import { mascot, starPill, streakPill, levelBadge, parentGate } from '../ui/components.js';
 import { pick } from '../core/util.js';
+import { currentIndex } from '../core/adventure.js';
+import { ISLANDS, STEPS } from '../data/adventure.js';
 
 const GREETINGS = ['On joue avec les mots ?', 'Prêt pour une mission lecture ?', 'Tu viens chasser les sons ?', 'Allez, on gagne des étoiles !', 'Coucou ! On lit ensemble ?'];
 
@@ -38,6 +40,24 @@ export default function home() {
       ? h('div', { class: 'review-card done' }, h('span', { class: 'review-emoji' }, '✅'), h('span', { class: 'review-txt' }, h('b', {}, 'Révisions faites !'), h('small', {}, 'Reviens demain pour la suite.')))
       : null;
 
+  // Carte de l'aventure : où en est-on ?
+  const cur = currentIndex(st);
+  let acc = 0;
+  const island = ISLANDS.find((i) => (acc += i.steps.length) > cur) || ISLANDS[ISLANDS.length - 1];
+  const adventureCard = h(
+    'button',
+    { class: 'adventure-card', onclick: () => go('adventure') },
+    h('span', { class: 'adv-emoji' }, '🗺️'),
+    h(
+      'span',
+      { class: 'review-txt' },
+      h('b', {}, 'Mon aventure'),
+      h('small', {}, cur >= STEPS.length ? 'Trésor trouvé ! Vise les 3 étoiles partout.' : cur ? `${island.emoji} ${island.name} · étape ${cur + 1} / ${STEPS.length}` : 'Pars à la recherche du trésor de Plume !'),
+      h('span', { class: 'bar small light' }, h('span', { class: 'bar-fill', style: { width: `${Math.round((cur / STEPS.length) * 100)}%` } }))
+    ),
+    h('span', { class: 'review-go' }, '▶')
+  );
+
   return h(
     'div',
     { class: 'screen home' },
@@ -49,6 +69,7 @@ export default function home() {
     ),
     mascot(h('span', {}, h('b', {}, `Salut ${name} !`), h('br'), pick(GREETINGS)), { size: 'big' }),
     levelBadge(),
+    adventureCard,
     reviewCard,
     h(
       'div',

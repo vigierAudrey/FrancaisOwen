@@ -5,10 +5,11 @@ import sons from './sons.js';
 import mots from './mots.js';
 import lecture from './lecture.js';
 import grammaire from './grammaire.js';
+import nombres from './nombres.js';
 import { uniqBy } from '../core/util.js';
 import { factStat, isDue } from '../core/srs.js';
 
-export const units = [sons, mots, lecture, grammaire];
+export const units = [sons, mots, lecture, grammaire, nombres];
 
 export const comingSoon = [];
 

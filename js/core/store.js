@@ -24,6 +24,7 @@ function defaults(units) {
     records: {}, // clé -> meilleur score
     history: [], // dernières séances
     days: [], // jours où l'enfant a joué (AAAA-MM-JJ)
+    adventure: { done: {} }, // carte de l'aventure : étape -> étoiles (1 à 3)
   };
 }
 

@@ -18,7 +18,7 @@ const PRAISE = ['Bravo !', 'Super !', 'Génial !', 'Trop fort !', 'Excellent !',
 const OOPS = ['Presque !', 'Pas grave, on apprend !', 'Oups ! Regarde bien :', 'On le retient ensemble :'];
 
 export default function sessionScreen(params) {
-  const { unitId, skillIds = [], mode: modeId, itemIds } = params;
+  const { unitId, skillIds = [], mode: modeId, itemIds, quest } = params;
   const st = getState();
   const review = modeId === 'review';
   const unit = unitId ? getUnit(unitId) : null;
@@ -105,7 +105,8 @@ export default function sessionScreen(params) {
     if (q.say || q.helpSay) kids.push(listenBtn(q.say || q.helpSay));
     if (q.title) kids.push(h('div', { class: 'q-title' }, q.title));
     if (q.text) kids.push(textView(q.text, q.textOpts, answered ? String(Array.isArray(q.answer) ? '' : q.answer) : null));
-    if (q.emoji) kids.push(h('div', { class: 'q-emoji', 'aria-hidden': 'true' }, q.emoji));
+    // Plusieurs images à compter (🍎🍎🍎…) : plus petites et sur plusieurs lignes.
+    if (q.emoji) kids.push(h('div', { class: 'q-emoji' + (Array.from(q.emoji).length > 3 ? ' many' : ''), 'aria-hidden': 'true' }, q.emoji));
     if (q.word) {
       const opts = { ...q.wordOpts, fill };
       if (answered && q.correction) Object.assign(opts, { hlIndex: q.correction.hlIndex, highlight: q.correction.highlight });
@@ -306,6 +307,7 @@ export default function sessionScreen(params) {
         skillIds,
         mode: modeId,
         itemIds,
+        quest,
         correct,
         asked,
         earned,
