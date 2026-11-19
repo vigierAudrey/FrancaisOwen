@@ -33,6 +33,8 @@ const SCREENS = {
   hunt: { id: 'hunt', label: 'Chasse aux sons', emoji: '🧺', desc: 'Attrape les bons mots', screen: 'hunt', game: true },
   mystery: { id: 'mystery', label: 'Le mot mystère', emoji: '🕵️', desc: 'Devine le mot lettre par lettre', screen: 'mystery', game: true },
   chrono: { id: 'chrono', label: 'Défi chrono', emoji: '⏱️', desc: 'Le plus de mots en 60 secondes', screen: 'chrono', game: true },
+  wordsearch: { id: 'wordsearch', label: 'Mots mêlés', emoji: '🔎', desc: 'Retrouve les mots cachés dans la grille', screen: 'wordsearch', game: true },
+  crossword: { id: 'crossword', label: 'Mots croisés', emoji: '✏️', desc: 'Écris les mots dans la grille', screen: 'crossword', game: true },
   memory: { id: 'memory', label: 'Memory', emoji: '🃏', desc: 'Retrouve les paires', screen: 'memory', game: true },
 };
 

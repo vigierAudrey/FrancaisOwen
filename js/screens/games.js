@@ -7,6 +7,9 @@ import { getUnit, enabledSkills } from '../units/index.js';
 import { header, mascot } from '../ui/components.js';
 
 const GAMES = [
+  { screen: 'wordsearch', unitId: 'mots', emoji: '🔎', label: 'Mots mêlés', desc: 'Trouve les mots cachés et apprends leur sens' },
+  { screen: 'crossword', unitId: 'mots', emoji: '✏️', label: 'Mots croisés', desc: 'Écris les mots grâce aux images ou aux devinettes' },
+  { mode: 'riddle', unitId: 'mots', emoji: '🤔', label: 'Les devinettes', desc: 'Écoute la définition et trouve le mot' },
   { screen: 'hunt', unitId: 'sons', emoji: '🧺', label: 'Chasse aux sons', desc: 'Attrape les images qui ont le bon son' },
   { screen: 'memory', unitId: 'mots', emoji: '🃏', label: 'Memory des mots', desc: 'Retrouve l’image et son mot' },
   { screen: 'mystery', unitId: 'mots', emoji: '🕵️', label: 'Le mot mystère', desc: 'Devine le mot lettre par lettre' },

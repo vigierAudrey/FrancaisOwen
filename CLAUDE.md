@@ -29,13 +29,14 @@ js/data/
   sounds.js           table des sons (graphies, sons proches, voix), familles, paires de sons cousins
   words.js            BANQUE DE MOTS illustrés (notation syllabes/graphèmes) + mots-outils
   grammar.js          verbes, adjectifs (m/f), pluriels, h aspiré, conjugaison au présent
+  definitions.js      définitions enfantines de chaque mot illustré (sans le mot lui-même)
   sentences.js        phrases simples, vrai/faux, phrases à trou et/est a/à, petites histoires
 js/lang/word.js       analyse de la notation, syllabes orales, distance entre mots
 js/units/             univers (sons, mots, lecture, grammaire) + registre index.js
 js/exercises/         exercices question par question (un fichier par univers) + registre index.js
 js/core/              store (sauvegarde), srs (Leitner + isDue), session, router, rewards
 js/ui/                dom (h), speech (voix), recordings (voix du parent, IndexedDB), wordView, sound, confetti, components
-js/screens/           home, unitMenu, session, results, learn, hunt, memory, mystery, chrono, games, rewards, parent
+js/screens/           home, unitMenu, session, results, learn, hunt, memory, mystery, chrono, wordsearch, crossword, games, rewards, parent
 tools/                scripts de vérification (node) — non livrés
 ```
 
@@ -64,7 +65,7 @@ tools/                scripts de vérification (node) — non livrés
 
 Phrases, vrai/faux, et/est, histoires : `data/sentences.js` (les ids viennent du texte : modifier
 un texte remet sa progression à zéro, c'est sans gravité). Verbes / adjectifs : `data/grammar.js`.
-Mots : ajouter une ligne dans `RAW_WORDS` (bon thème), puis `node tools/check-words.mjs -v` (vérifie
+Mots : ajouter une ligne dans `RAW_WORDS` (bon thème) **et sa définition dans `data/definitions.js`**, puis `node tools/check-words.mjs -v` (vérifie
 graphèmes, doublons de mots/emoji, affiche sons et syllabes) et `node tools/check-exercises.mjs`
 (construit tous les exercices pour tous les éléments et vérifie leur cohérence).
 
@@ -113,7 +114,8 @@ node tools/check-words.mjs && node tools/check-exercises.mjs
   12 petites histoires) et **Grammaire** (un/une, le/la/l', singulier/pluriel, masculin/féminin
   des adjectifs, nom/verbe/adjectif, la phrase, et/est, a/à, être, avoir, aller, verbes en -er),
   avec leçons dans « J'apprends ».
-- **Étape 3 (en partie faite)** : jeux Mot mystère et Défi chrono ; enregistrement des sons par
+- **Étape 3 (en partie faite)** : jeux Mot mystère, Défi chrono, **Mots mêlés** (liste ou devinettes,
+  3 niveaux), **Mots croisés illustrés** (images ou devinettes, grille générée à chaque partie) et exercice **Devinettes** (définitions des 373 mots) ; enregistrement des sons par
   le parent. Reste à faire : Pluie de mots, carte d'aventure avec niveaux à débloquer,
   écriture cursive, plusieurs profils enfants, export Play Store (PWABuilder / Capacitor),
   plus d'histoires et de phrases, passé composé / futur en CE2.

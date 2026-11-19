@@ -34,6 +34,6 @@ export default {
   ],
   skills: [...themeSkills, sightSkill],
   defaultSkills: [...THEMES.map((t) => t.id), 'outils'],
-  modes: ['learn', 'listen', 'read', 'spellcheck', 'syllables', 'write', 'memory', 'mystery', 'chrono'],
-  reviewModes: ['listen', 'read', 'spellcheck', 'syllables', 'write'],
+  modes: ['learn', 'listen', 'read', 'riddle', 'spellcheck', 'syllables', 'write', 'memory', 'mystery', 'wordsearch', 'crossword', 'chrono'],
+  reviewModes: ['listen', 'read', 'riddle', 'spellcheck', 'syllables', 'write'],
 };

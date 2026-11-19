@@ -2,6 +2,7 @@
 
 import { RAW_WORDS, SIGHT_WORDS } from '../data/words.js';
 import { VOWELS } from '../data/sounds.js';
+import { DEFS } from '../data/definitions.js';
 
 // Son produit par défaut par chaque graphème.
 const GMAP = {
@@ -69,7 +70,8 @@ export const WORDS = [];
 for (const [theme, block] of Object.entries(RAW_WORDS)) {
   for (const line of block.split('\n').map((l) => l.trim()).filter(Boolean)) {
     const [notation, emoji, genre] = line.split(/\s+/);
-    WORDS.push({ ...parseWord(notation), emoji, genre, theme, notation });
+    const parsed = parseWord(notation);
+    WORDS.push({ ...parsed, emoji, genre, theme, notation, def: DEFS[parsed.w] });
   }
 }
 export const WORD_BY = Object.fromEntries(WORDS.map((w) => [w.w, w]));

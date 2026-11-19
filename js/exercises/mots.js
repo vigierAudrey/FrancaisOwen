@@ -174,3 +174,29 @@ export const write = {
     };
   },
 };
+
+export const riddle = {
+  id: 'riddle',
+  label: 'Devinettes',
+  emoji: '🤔',
+  desc: 'Écoute la définition et trouve le mot',
+  build(item, ctx) {
+    const word = item.word;
+    if (!word.def || !word.emoji) return null;
+    const choices = [word, ...illustrated(ctx, word).filter((w) => w.def).slice(0, 3)].map((w) => ({ value: w.w, emoji: w.emoji }));
+    return {
+      item,
+      instruction: 'Devinette : qui suis-je ?',
+      say: word.def,
+      text: word.def,
+      textOpts: { story: true },
+      input: 'choices',
+      choiceStyle: 'emoji',
+      choices: shuffle(choices),
+      answer: word.w,
+      reveal: { word },
+      afterOk: word.w,
+      correction: { emoji: word.emoji, word, text: `C’est ${withArticle(word)} : ${word.def.charAt(0).toLowerCase()}${word.def.slice(1)}`, say: `${withArticle(word)}. ${word.def}` },
+    };
+  },
+};

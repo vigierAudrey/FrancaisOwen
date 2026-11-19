@@ -14,6 +14,8 @@ import memory from './screens/memory.js';
 import games from './screens/games.js';
 import mystery from './screens/mystery.js';
 import chrono from './screens/chrono.js';
+import wordsearch from './screens/wordsearch.js';
+import crossword from './screens/crossword.js';
 import rewards from './screens/rewards.js';
 import parent from './screens/parent.js';
 
@@ -29,6 +31,8 @@ register('memory', memory);
 register('games', games);
 register('mystery', mystery);
 register('chrono', chrono);
+register('wordsearch', wordsearch);
+register('crossword', crossword);
 register('rewards', rewards);
 register('parent', parent);
 
